@@ -8,7 +8,7 @@ Command line application that allows you to view and edit a company's employee d
 
 ## Demo
 
-[Demo video link](#)
+[Demo video link](https://drive.google.com/file/d/1oVSic8M9WPo8eAFWt7TOEAgpOEuJ8KFw/view?usp=drive_link)
 
 ## Table of Contents
 
