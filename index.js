@@ -1,8 +1,8 @@
 const { Client } = require('pg')
 const inquirer = require('inquirer')
+require('dotenv').config()
 
 const PORT = process.env.PORT || 3001
-const app = express()
 
 // Connect to database
 const db = new Client({
