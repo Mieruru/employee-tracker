@@ -62,12 +62,18 @@ function inquireMenu() {
     })
 }
 
-const viewAllDepartments = () => {
-
+const viewAllDepartments = async () => {
+  db.query('SELECT * FROM department', (err, { rows }) => {
+    console.log(rows)
+    inquireMenu()
+  })
 }
 
 const viewAllEmployees = () => {
-
+  db.query('SELECT * FROM employee', (err, { rows }) => {
+    console.log(rows)
+    inquireMenu()
+  })
 }
 
 const addDepartment = () => {
