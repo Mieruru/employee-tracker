@@ -29,7 +29,7 @@ VALUES
 -- seed employee data
 INSERT INTO employee (first_name,last_name,role_id,manager_id)
 VALUES
-('The', 'Dude', 2, NULL);
+('The', 'Dude', 2, NULL),
 ('Christopher', 'Hemsworth', 1, 1),
 ('Gary', 'Oldman', 1, 1),
 ('Childish', 'Gambino', 4, 1),
@@ -43,4 +43,4 @@ VALUES
 ('Kate', 'Beckinsale', 6, 1),
 ('Leeroy', 'Jenkins', 3, 1),
 ('Mark', 'Hamill', 5, 1),
-('Tilda', 'Swinton', 4, 1),
+('Tilda', 'Swinton', 4, 1);
