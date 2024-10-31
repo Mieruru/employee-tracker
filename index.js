@@ -129,18 +129,71 @@ const addRole = () => {
         choices: departments
       },
     ]).then((input) => {
-      db.query('INSERT INTO role (title, salary, department_id) VALUES ($1, $2, $3)', [input.title, input.salary, input.department_id], (err, res) => {
-        if (err) throw err
-        console.log(`${input.title} added to role table.`)
-        inquireMenu()
-      })
+      db.query('INSERT INTO role (title, salary, department_id) VALUES ($1, $2, $3)',
+        [input.title, input.salary, input.department_id],
+        (err, res) => {
+          if (err) throw err
+          console.log(`${input.title} added to role table.`)
+          inquireMenu()
+        })
     })
   })
 }
 
 // add an employee to employee table
 const addEmployee = () => {
-
+  db.query('SELECT * FROM role', (err, res) => {
+    if (err) throw err
+    const roles = res.rows.map((role) => {
+      return {
+        name: role.title,
+        value: role.id
+      }
+    })
+    db.query('SELECT * FROM employee', (err, res) => {
+      if (err) throw err
+      const employees = res.rows.map((employee) => {
+        return {
+          name: `${employee.first_name} ${employee.last_name}`,
+          value: employee.id
+        }
+      })
+      employees.unshift({ name: 'none', value: null })
+      inquirer.prompt([
+        {
+          type: 'input',
+          name: 'first_name',
+          message: `Enter new employee's first name:`
+        },
+        {
+          type: 'input',
+          name: 'last_name',
+          message: `Enter new employee's last name:`
+        },
+        {
+          type: 'list',
+          name: 'role_id',
+          message: `Select new employee's role:`,
+          choices: roles
+        },
+        {
+          type: 'list',
+          name: 'manager_id',
+          message: `Select new employee's manager:`,
+          choices: employees
+        },
+      ]).then((input) => {
+        db.query('INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES ($1, $2, $3, $4)',
+          [input.first_name, input.last_name, input.role_id, input.manager_id],
+          (err, res) => {
+            if (err) throw err
+            console.log(`${input.first_name} ${input.last_name} added to employee table.`)
+            inquireMenu()
+          }
+        )
+      })
+    })
+  })
 }
 
 // edit employee role
