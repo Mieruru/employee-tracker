@@ -34,7 +34,7 @@ function inquireMenu() {
         'Add a department',
         'Add a role',
         'Add an employee',
-        'Update and employee role',
+        'Update an employee role',
         'Exit'
       ]
     }
@@ -92,9 +92,10 @@ const addDepartment = () => {
       name: 'department',
       message: 'Enter new department name'
     },
-  ]).then((answer) => {
-    db.query('INSERT INTO department (name) VALUES ($1)', [answer.department], (err, res) => {
-      console.log(`${answer.department} added to Department table`)
+  ]).then((input) => {
+    db.query('INSERT INTO department (name) VALUES ($1)', [input.department], (err, res) => {
+      if (err) throw err
+      console.log(`${input.department} added to Department table`)
       inquireMenu()
     })
   })
@@ -102,7 +103,39 @@ const addDepartment = () => {
 
 // add a role to role table
 const addRole = () => {
-
+  db.query('SELECT * FROM department', (err, res) => {
+    if (err) throw err
+    const departments = res.rows.map((department) => {
+      return {
+        name: department.name,
+        value: department.id
+      }
+    })
+    inquirer.prompt([
+      {
+        type: 'input',
+        name: 'title',
+        message: 'Enter new role title:'
+      },
+      {
+        type: 'input',
+        name: 'salary',
+        message: 'Enter new role salary (integers only):'
+      },
+      {
+        type: 'list',
+        name: 'department_id',
+        message: 'Assign role to department:',
+        choices: departments
+      },
+    ]).then((input) => {
+      db.query('INSERT INTO role (title, salary, department_id) VALUES ($1, $2, $3)', [input.title, input.salary, input.department_id], (err, res) => {
+        if (err) throw err
+        console.log(`${input.title} added to role table.`)
+        inquireMenu()
+      })
+    })
+  })
 }
 
 // add an employee to employee table
