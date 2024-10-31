@@ -13,12 +13,12 @@ VALUES
 ('Warehouse');
 
 -- seed role data
-INSERT INTO role (title,department_id,salary)
+INSERT INTO role (title, salary, department_id)
 VALUES
 ('Asset Protection', 50000, 2),
 ('Breakdancing Guy', 90001, 6),
 ('Cashier', 45000, 1),
-('Customer Service Representative', 40000, 2),
+('CS Representative', 40000, 2),
 ('Driver', 47000, 7),
 ('Janitor', 35000, 7),
 ('Salesman', 60000, 6),
@@ -27,7 +27,7 @@ VALUES
 ('Systems Technician', 78000, 5);
 
 -- seed employee data
-INSERT INTO employee (first_name,last_name,role_id,manager_id)
+INSERT INTO employee (first_name, last_name, role_id, manager_id)
 VALUES
 ('The', 'Dude', 2, NULL),
 ('Christopher', 'Hemsworth', 1, 1),
@@ -44,3 +44,5 @@ VALUES
 ('Leeroy', 'Jenkins', 3, 1),
 ('Mark', 'Hamill', 5, 1),
 ('Tilda', 'Swinton', 4, 1);
+
+\dt;
